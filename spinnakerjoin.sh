@@ -2,7 +2,7 @@
 
 
 
-checkCluster=(hal config provider kubernetes account list |grep cluster-1 |awk '{print \$3}')
+checkCluster=$(hal config provider kubernetes account list |grep cluster-1 |awk '{print \$3}')
 
 
 
@@ -17,7 +17,7 @@ then
 
   CONTEXT=$(kubectl config current-context --kubeconfig ~/.kube/cluster-1);
 
-  TOKEN=(kubectl get secret --kubeconfig ~/.kube/cluster-1 --context $CONTEXT $(kubectl get serviceaccount spinnaker-sa --kubeconfig ~/.kube/cluster-1 --context \$CONTEXT -n spinnaker -o jsonpath='{.secrets[0].name}') -n spinnaker -o jsonpath='{.data.token}' | base64 --decode);
+  TOKEN=$(kubectl get secret --kubeconfig ~/.kube/cluster-1 --context $CONTEXT $(kubectl get serviceaccount spinnaker-sa --kubeconfig ~/.kube/cluster-1 --context \$CONTEXT -n spinnaker -o jsonpath='{.secrets[0].name}') -n spinnaker -o jsonpath='{.data.token}' | base64 --decode);
 
   kubectl config set-credentials $CONTEXT-token-user --kubeconfig ~/.kube/cluster-1 --token $TOKEN;
 
