@@ -5,7 +5,7 @@
 #gcloud container clusters get-credentials cluster-1 --region us-west1-a --project devopsteamrnd
 #kubectl get all
 #gcloud container clusters list
-
+checkCluster=$(hal config provider kubernetes account list |grep cluster-1 |awk '{print \$3}')
 if [ -z "\$checkCluster" ];
 
 then
