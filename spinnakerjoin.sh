@@ -13,12 +13,13 @@ then
   gcloud auth activate-service-account --key-file /home/haluser/halserver.json
 
   gcloud container clusters get-credentials cluster-1 --region us-west1-a --project devopsteamrnd;
+  kubectl get all
 
-  CONTEXT=(kubectl config current-context --kubeconfig ~/.kube/cluster-1);
+  CONTEXT=$(kubectl config current-context --kubeconfig ~/.kube/cluster-1);
 
-  TOKEN=(kubectl get secret --kubeconfig ~/.kube/cluster-1 --context $CONTEXT $(kubectl get serviceaccount spinnaker-sa --kubeconfig ~/.kube/${eksClusterName} --context \$CONTEXT -n spinnaker -o jsonpath='{.secrets[0].name}') -n spinnaker -o jsonpath='{.data.token}' | base64 --decode);
+  TOKEN=(kubectl get secret --kubeconfig ~/.kube/cluster-1 --context $CONTEXT $(kubectl get serviceaccount spinnaker-sa --kubeconfig ~/.kube/cluster-1 --context \$CONTEXT -n spinnaker -o jsonpath='{.secrets[0].name}') -n spinnaker -o jsonpath='{.data.token}' | base64 --decode);
 
-  kubectl config set-credentials $CONTEXT-token-user --kubeconfig ~/.kube/cluster-1 --token \$TOKEN;
+  kubectl config set-credentials $CONTEXT-token-user --kubeconfig ~/.kube/cluster-1 --token $TOKEN;
 
   kubectl config set-context $CONTEXT --kubeconfig ~/.kube/cluster-1 --user ${CONTEXT}-token-user;
 
