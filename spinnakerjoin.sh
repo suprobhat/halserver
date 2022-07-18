@@ -15,3 +15,5 @@ kubectl config set-context $CONTEXT --kubeconfig ~/.kube/cluster-1 --user ${CONT
 hal config provider kubernetes account add cluster-1 --context $CONTEXT --kubeconfig-file ~/.kube/cluster-1
 hal deploy apply
 
+
+
