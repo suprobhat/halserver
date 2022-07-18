@@ -18,7 +18,7 @@ kubectl config set-credentials $CONTEXT-token-user --token $TOKEN
 kubectl config set-context $CONTEXT --user $CONTEXT-token-user
 hal config provider kubernetes account add spinnaker-sa2 --context $CONTEXT 
 hal deploy apply
-kubectl get all -n spinnaker
+
 
 
 
