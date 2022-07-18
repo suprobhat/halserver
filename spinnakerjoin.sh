@@ -19,6 +19,8 @@ TOKEN=$(kubectl get secret --context $CONTEXT $(kubectl get serviceaccount spinn
 echo $TOKEN
 kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
 kubectl config set-context $CONTEXT --user $CONTEXT-token-user
+hal config provider kubernetes enable 
+CONTEXT=$(kubectl config current-context) 
 hal config provider kubernetes account add spinnaker-sa --context $CONTEXT 
 sudo mkdir ~/.hal/default/profiles/
 echo 'spinnaker.s3.versioning: false' > ~/.hal/default/profiles/front50-local.yml
