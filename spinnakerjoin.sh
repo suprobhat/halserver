@@ -22,9 +22,9 @@ kubectl config set-context $CONTEXT --user $CONTEXT-token-user
 hal config provider kubernetes enable 
 CONTEXT=$(kubectl config current-context) 
 hal config provider kubernetes account add spinnaker-sa --context $CONTEXT 
-sudo mkdir -p ~/.hal/default/profiles/
-chmod -R 777 ~/.hal/default/profiles/
-echo 'spinnaker.s3.versioning: false' > ~/.hal/default/profiles/front50-local.yml
+#sudo mkdir -p ~/.hal/default/profiles/
+#chmod -R 777 ~/.hal/default/profiles/
+#echo 'spinnaker.s3.versioning: false' > ~/.hal/default/profiles/front50-local.yml
 kubectl get ns
 hal config features edit --artifacts true
 sudo snap install helm --classic -y
