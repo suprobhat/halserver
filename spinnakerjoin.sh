@@ -15,6 +15,7 @@ kubectl config set-context $CONTEXT --user $CONTEXT-token-user
 kubectl config get-contexts
 kubectl config use-context gke_devopsteamrnd_us-west1-a_cluster-1
 kubectl config set-cluster gke_devopsteamrnd_us-west1-a_cluster-1
+kubectl config get-contexts
 kubectl get all
 kubectl create ns spinnaker
 kubectl create sa spinnaker-sa -n spinnaker
