@@ -16,6 +16,10 @@ echo $TOKEN
 kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
 kubectl config set-context $CONTEXT --user $CONTEXT-token-user
 hal config provider kubernetes account add spinnaker-sa --context $CONTEXT 
+hal config features edit --artifacts true 
+hal config deploy edit --type distributed --account-name spinnaker-sa
+hal config storage s3 edit --path-style-access true 
+hal config storage edit --type s3 
 hal deploy apply
 
 
