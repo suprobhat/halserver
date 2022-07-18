@@ -6,6 +6,7 @@ gcloud container clusters get-credentials cluster-1 --region us-west1-a --projec
 kubectl get all
 kubectl create ns spinnaker
 kubectl get ns
+kubectl create sa spinnaker-sa -n spinnaker
 gcloud container clusters list
 kubectl get sa -A
 CONTEXT=$(kubectl config current-context)
