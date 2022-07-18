@@ -19,8 +19,8 @@ TOKEN=$(kubectl get secret --context $CONTEXT $(kubectl get serviceaccount spinn
 echo $TOKEN
 kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
 kubectl config set-context $CONTEXT --user $CONTEXT-token-user
-hal config provider kubernetes enable 
-CONTEXT=$(kubectl config current-context) 
+#hal config provider kubernetes enable 
+#CONTEXT=$(kubectl config current-context) 
 #hal config provider kubernetes account add spinnaker-sa --context $CONTEXT 
 #sudo mkdir -p ~/.hal/default/profiles/
 #chmod -R 777 ~/.hal/default/profiles/
@@ -35,7 +35,7 @@ hal config storage s3 edit --endpoint http://minio:9000 --access-key-id "myacces
 hal config deploy edit --type distributed --account-name spinnaker-sa
 hal config storage s3 edit --path-style-access true 
 hal config storage edit --type s3 
-hal config version edit --version 1.26.6 
+#hal config version edit --version 1.26.6 
 hal deploy apply
 kubectl get all -n spinnaker
 
