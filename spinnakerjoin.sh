@@ -30,7 +30,7 @@ hal config features edit --artifacts true
 sudo snap install helm --classic -y
 helm repo add stable https://charts.helm.sh/stable 
 helm repo update 
-helm upgrade minio --namespace spinnaker stable/minio --set accessKey="myaccesskey" --set secretKey="mysecretkey" -f /home/haluser/values.yaml
+#helm upgrade minio --namespace spinnaker stable/minio --set accessKey="myaccesskey" --set secretKey="mysecretkey" -f /home/haluser/values.yaml
 hal config storage s3 edit --endpoint http://minio:9000 --access-key-id "myaccesskey" --secret-access-key "mysecretkey"
 hal config deploy edit --type distributed --account-name spinnaker-sa
 hal config storage s3 edit --path-style-access true 
