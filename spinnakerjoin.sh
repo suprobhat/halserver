@@ -16,18 +16,20 @@ echo $TOKEN
 kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
 kubectl config set-context $CONTEXT --user $CONTEXT-token-user
 hal config provider kubernetes account add spinnaker-sa --context $CONTEXT 
+echo 'spinnaker.s3.versioning: false' > ~/.hal/default/profiles/front50-local.yml
+hal config features edit --artifacts true
 sudo snap install helm --classic -y
 helm repo add stable https://charts.helm.sh/stable 
 helm repo update 
-helm install minio --namespace spinnaker stable/minio --set accessKey="myaccesskey" --set secretKey="mysecretkey" --values ./values.yaml
+helm install minio --namespace spinnaker stable/minio --set accessKey="myaccesskey" --set secretKey="mysecretkey" --values /home/haluser/values.yaml
 hal config storage s3 edit --endpoint http://minio:9000 --access-key-id "myaccesskey" --secret-access-key "mysecretkey"
 mkdir ~/.hal/default/profiles/ 
-echo 'spinnaker.s3.versioning: false' > ~/.hal/default/profiles/front50-local.yml
-hal config features edit --artifacts true 
 hal config deploy edit --type distributed --account-name spinnaker-sa
 hal config storage s3 edit --path-style-access true 
 hal config storage edit --type s3 
+hal config version edit --version 1.26.6 
 hal deploy apply
+kubectl get all -n spinnaker
 
 
 
