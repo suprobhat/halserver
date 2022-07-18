@@ -10,17 +10,11 @@ gcloud container clusters list
 kubectl get sa -A
 CONTEXT=$(kubectl config current-context)
 echo $CONTEXT
-TOKEN=$(kubectl get secret --context $CONTEXT \
-   $(kubectl get serviceaccount spinnaker-sa \
-       --context $CONTEXT \
-       -n spinnaker \
-       -o jsonpath='{.secrets[0].name}') \
-   -n spinnaker \
-   -o jsonpath='{.data.token}' | base64 --decode)
+TOKEN=$(kubectl get secret --context $CONTEXT $(kubectl get serviceaccount spinnaker-service-account --context $CONTEXT -n spinnaker -o jsonpath='{.secrets[0].name}') -n spinnaker -o jsonpath='{.data.token}' | base64 --decode)
 echo $TOKEN
 kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
 kubectl config set-context $CONTEXT --user $CONTEXT-token-user
-hal deploy apply
+
 
 
 
