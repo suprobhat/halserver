@@ -14,6 +14,7 @@ TOKEN=$(kubectl get secret --context $CONTEXT $(kubectl get serviceaccount spinn
 echo $TOKEN
 kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
 kubectl config set-context $CONTEXT --user $CONTEXT-token-user
+hal deploy apply
 
 
 
