@@ -6,12 +6,6 @@ gcloud container clusters get-credentials cluster-1 --region us-west1-a --projec
 kubectl get all
 kubectl get ns
 gcloud container clusters list
-CONTEXT=$(kubectl config current-context)
-echo $CONTEXT
-TOKEN=$(kubectl get secret --context $CONTEXT $(kubectl get serviceaccount spinnaker-sa --context $CONTEXT -n spinnaker -o jsonpath='{.secrets[0].name}') -n spinnaker -o jsonpath='{.data.token}' | base64 --decode)
-echo $TOKEN
-kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
-kubectl config set-context $CONTEXT --user $CONTEXT-token-user
 kubectl config get-contexts
 kubectl config use-context gke_devopsteamrnd_us-west1-a_cluster-1
 kubectl config set-cluster gke_devopsteamrnd_us-west1-a_cluster-1
@@ -19,6 +13,12 @@ kubectl config get-contexts
 kubectl get all
 kubectl create ns spinnaker
 kubectl create sa spinnaker-sa -n spinnaker
+CONTEXT=$(kubectl config current-context)
+echo $CONTEXT
+TOKEN=$(kubectl get secret --context $CONTEXT $(kubectl get serviceaccount spinnaker-sa --context $CONTEXT -n spinnaker -o jsonpath='{.secrets[0].name}') -n spinnaker -o jsonpath='{.data.token}' | base64 --decode)
+echo $TOKEN
+kubectl config set-credentials $CONTEXT-token-user --token $TOKEN   
+kubectl config set-context $CONTEXT --user $CONTEXT-token-user
 hal config provider kubernetes account add spinnaker-sa --context $CONTEXT 
 sudo mkdir ~/.hal/default/profiles/
 echo 'spinnaker.s3.versioning: false' > ~/.hal/default/profiles/front50-local.yml
