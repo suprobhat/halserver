@@ -7,5 +7,6 @@ kubectl get all
 kubectl create ns spinnaker
 kubectl get ns
 gcloud container clusters list
+kubectl get sa -A
 
 
